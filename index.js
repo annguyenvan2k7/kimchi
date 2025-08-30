@@ -56,3 +56,61 @@ giftBox.addEventListener("click", () => {
     typeWriter(texts, birthdayText);
   }, 3500);
 });
+// Tạo confetti rơi liên tục
+function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+
+    // nhiều màu pastel
+    const colors = ["#ffb6c1", "#ffd700", "#87ceeb", "#98fb98", "#dda0dd"];
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+    document.body.appendChild(confetti);
+
+    setTimeout(() => {
+        confetti.remove();
+    }, 5000);
+}
+setInterval(createConfetti, 200);
+
+// Tạo pháo hoa
+function createFirework(x, y) {
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("firework");
+
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 80 + Math.random() * 60;
+        const dx = Math.cos(angle) * distance + "px";
+        const dy = Math.sin(angle) * distance + "px";
+
+        particle.style.setProperty("--dx", dx);
+        particle.style.setProperty("--dy", dy);
+
+        particle.style.left = x + "px";
+        particle.style.top = y + "px";
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            particle.classList.add("show");
+        }, 10);
+
+        setTimeout(() => {
+            particle.remove();
+        }, 1200);
+    }
+}
+
+// Click mở quà -> card hiện + pháo hoa nổ
+document.querySelector(".gift").addEventListener("click", (e) => {
+    const card = document.querySelector(".card");
+    card.classList.add("show");
+
+    const rect = e.target.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    createFirework(x, y);
+});
+
