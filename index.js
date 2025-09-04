@@ -74,14 +74,17 @@ function createConfetti() {
 }
 setInterval(createConfetti, 200);
 
-// Tạo pháo hoa
 function createFirework(x, y) {
-    for (let i = 0; i < 20; i++) {
+    const colors = ["#ff4d4d", "#ffd700", "#00ffcc", "#ff66ff", "#66b3ff"];
+    for (let i = 0; i < 30; i++) {  // nhiều hạt hơn
         const particle = document.createElement("div");
         particle.classList.add("firework");
 
+        // chọn màu ngẫu nhiên
+        particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+
         const angle = Math.random() * 2 * Math.PI;
-        const distance = 80 + Math.random() * 60;
+        const distance = 80 + Math.random() * 80;
         const dx = Math.cos(angle) * distance + "px";
         const dy = Math.sin(angle) * distance + "px";
 
@@ -102,7 +105,6 @@ function createFirework(x, y) {
         }, 1200);
     }
 }
-
 // Click mở quà -> card hiện + pháo hoa nổ
 document.querySelector(".gift").addEventListener("click", (e) => {
     const card = document.querySelector(".card");
